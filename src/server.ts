@@ -3,5 +3,5 @@ import { env } from './env';
 
 app.listen(env.PORT, () => {
   console.log(`🚀 HTTP Server Running!`);
-  console.log(`🚪 Port in use: \x1b[33m${env.PORT}`);
+  console.log(`🚪 Port in use: \x1b[33m${env.PORT}\x1b[37m`);
 });
