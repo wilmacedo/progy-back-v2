@@ -20,6 +20,9 @@ export class InMemoryUserRepository implements UserRepository {
     name,
     email,
     password,
+    role,
+    created_at,
+    updated_at,
   }: Prisma.UserCreateInput): Promise<User> {
     let id = 1;
     if (this.users.length > 0) {
@@ -31,11 +34,11 @@ export class InMemoryUserRepository implements UserRepository {
       name,
       email,
       password,
-      created_at: new Date(),
-      updated_at: new Date(),
-      role: '',
-      institution_id: 0,
-      unit_id: 0,
+      role,
+      created_at: typeof created_at !== 'string' ? created_at : new Date(),
+      updated_at: typeof updated_at !== 'string' ? updated_at : new Date(),
+      institution_id: null,
+      unit_id: null,
     };
 
     this.users.push(user);
