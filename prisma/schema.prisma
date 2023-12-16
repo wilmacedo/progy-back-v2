@@ -213,10 +213,10 @@ model units {
   initiatives         initiatives[]
   pending_initiatives pending_initiatives[]
   plannings           plannings             @relation(fields: [planning_id], references: [id], onDelete: Cascade)
-  users               users[]
+  users               User[]
 }
 
-model users {
+model User {
   id             Int      @id @default(autoincrement())
   name           String   @db.VarChar(255)
   email          String   @unique @db.VarChar(255)
@@ -227,4 +227,6 @@ model users {
   updated_at     DateTime @db.Timestamptz(6)
   unit_id        Int?
   units          units?   @relation(fields: [unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("users")
 }

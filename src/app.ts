@@ -12,8 +12,8 @@ app.use(express.urlencoded({ limit: '5mb', extended: true }));
 app.use(express.json({ limit: '5mb' }));
 app.use(morgan('dev'));
 
-app.use('/users', async (req, res) => {
-  const users = await prisma.users.findMany();
+app.use('/users', async (_, res) => {
+  const users = await prisma.user.findMany();
 
   res.status(200).json({ users });
 });
