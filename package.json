@@ -17,6 +17,7 @@
   "author": "Wilson Macedo <wil.macedo.sa@gmal.com> (http://linkedin.com/in/wilmacedo)",
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "^5.7.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -47,6 +48,7 @@
     "express-async-errors": "^3.1.1",
     "morgan": "^1.10.0",
     "prettier": "^3.1.1",
+    "prisma": "^5.7.0",
     "tsup": "^8.0.1",
     "tsx": "^4.6.2",
     "typescript": "^5.3.3",
