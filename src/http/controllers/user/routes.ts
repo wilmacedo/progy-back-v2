@@ -5,4 +5,4 @@ import { register } from './register';
 export const usersRouter = Router();
 
 usersRouter.post('/', register);
-usersRouter.get('/authenticate', authenticate);
+usersRouter.post('/authenticate', authenticate);

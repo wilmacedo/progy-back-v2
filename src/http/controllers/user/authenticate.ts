@@ -30,8 +30,10 @@ export async function authenticate(request: Request, response: Response) {
     const token = jwt.sign(data, env.JWT_SECRET);
 
     return response.status(200).json({
-      ...data,
-      token,
+      data: {
+        ...data,
+        token,
+      },
     });
   } catch (error) {
     if (error instanceof InvalidCredentialsError) {
