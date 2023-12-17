@@ -1,0 +1,31 @@
+import { makeList } from '@/use-cases/factories/state/make-list';
+import { Request, Response } from 'express';
+import { z } from 'zod';
+
+export async function list(request: Request, response: Response) {
+  const listParamSchema = z.object({
+    id: z
+      .custom<number>()
+      .refine(value => value ?? false, 'Required')
+      .refine(value => Number.isFinite(Number(value)), 'Invalid number')
+      .transform(value => Number(value)),
+  });
+
+  const listQuerySchema = z.object({
+    populate: z.string().optional(),
+  });
+
+  const { id } = listParamSchema.parse(request.params);
+  const { populate } = listQuerySchema.parse(request.query);
+
+  const listCase = makeList();
+
+  const { states } = await listCase.execute({
+    planningId: id,
+    filter: {
+      populate,
+    },
+  });
+
+  return response.status(200).json({ data: states });
+}
