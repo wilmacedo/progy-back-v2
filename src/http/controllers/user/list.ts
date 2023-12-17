@@ -14,7 +14,7 @@ export async function list(request: Request, response: Response) {
   if (getRoleAccess(request.userData.role) === RoleAccess.LOW) {
     return response
       .status(401)
-      .json({ error: "You don't have permission to access this" });
+      .json({ message: "You don't have permission to access this" });
   }
 
   try {

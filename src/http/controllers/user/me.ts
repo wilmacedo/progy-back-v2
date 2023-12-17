@@ -23,7 +23,7 @@ export async function me(request: Request, response: Response) {
     return response.status(200).send({ data: result });
   } catch (error) {
     if (error instanceof UserNotFoundError) {
-      return response.status(404).send({ error: 'User not found' });
+      return response.status(404).send({ message: error.message });
     }
 
     throw error;
