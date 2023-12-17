@@ -1,4 +1,5 @@
 import { activitiesRouter } from '@/http/controllers/activity/routes';
+import { emailsRouter } from '@/http/controllers/email/routes';
 import { initiativesRouter } from '@/http/controllers/initiative/routes';
 import { institutionsRouter } from '@/http/controllers/institution/routes';
 import { planningsRouter } from '@/http/controllers/planning/routes';
@@ -14,3 +15,4 @@ routes.use('/plannings', activitiesRouter);
 routes.use('/plannings', statesRouter);
 routes.use('/plannings', initiativesRouter);
 routes.use('/institutions', institutionsRouter);
+routes.use('/email', emailsRouter);

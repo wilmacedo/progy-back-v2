@@ -12,6 +12,8 @@ const schema = z.object({
   MAIL_HOST: z.string(),
   REDIS_HOST: z.string(),
   REDIS_PORT: z.string(),
+  API_URL: z.string().default('http://localhost:3333'),
+  DASHBOARD_URL: z.string().default('http://localhost:3000'),
 });
 
 const _env = schema.safeParse(process.env);

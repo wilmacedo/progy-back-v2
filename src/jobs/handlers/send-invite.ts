@@ -1,3 +1,4 @@
+import { env } from '@/env';
 import { Mailer } from '@/lib/mailer';
 import { Cryptograph } from '@/utils/cryptograph';
 import Job from '../job';
@@ -39,7 +40,7 @@ export class SendInvite extends Job<SendInviteData> {
       description:
         'Você foi convidado para participar de um planejamento! Clique no botão abaixo para confirmação seu nome e senha e ative sua conta',
       button: 'participar',
-      link: 'http://localhost:3333/email/invite/redirect?token=' + encrypted,
+      link: env.API_URL + '/email/invite/redirect?token=' + encrypted,
     });
   }
 }
