@@ -1,11 +1,14 @@
 import { verifyAccessToken } from '@/http/middleware/verify-access-token';
 import { Router } from 'express';
 import { authenticate } from './authenticate';
+import { list } from './list';
 import { me } from './me';
 import { register } from './register';
 
 export const usersRouter = Router();
 
-usersRouter.post('/', register);
 usersRouter.post('/authenticate', authenticate);
+
+usersRouter.post('/', verifyAccessToken, register);
+usersRouter.get('/', verifyAccessToken, list);
 usersRouter.get('/me', verifyAccessToken, me);

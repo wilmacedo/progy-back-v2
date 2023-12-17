@@ -1,5 +1,6 @@
 import { UserRepository } from '@/repositories/user-repository';
 import { AccessTokenData } from '@/types/access-token';
+import { User } from '@prisma/client';
 import { UserNotFoundError } from '../error/user-not-found-error';
 
 interface Request {
@@ -7,14 +8,7 @@ interface Request {
 }
 
 interface Response {
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    role: string;
-    institution_id: number | null;
-    unit_id: number | null;
-  };
+  user: User;
 }
 
 export class Me {
@@ -28,16 +22,6 @@ export class Me {
       throw new UserNotFoundError();
     }
 
-    const { id, name, email, role, institution_id, unit_id } = user;
-    const result = {
-      id,
-      name,
-      email,
-      role,
-      institution_id,
-      unit_id,
-    };
-
-    return { user: result };
+    return { user };
   }
 }

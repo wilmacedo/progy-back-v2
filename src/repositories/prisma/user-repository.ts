@@ -28,4 +28,10 @@ export class PrismaUserRepository implements UserRepository {
 
     return user;
   }
+
+  async list(options?: Prisma.UserFindManyArgs): Promise<User[]> {
+    const users = await prisma.user.findMany(options);
+
+    return users;
+  }
 }

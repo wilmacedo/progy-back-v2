@@ -1,6 +1,6 @@
 import { UserAlreadyExists } from '@/use-cases/error/user-already-exists-error';
 import { MakeRegisterUserCase } from '@/use-cases/factories/user/make-register';
-import { availableRoles } from '@/utils/roles';
+import { RoleAccess, availableRoles, getRoleAccess } from '@/utils/roles';
 import { Request, Response } from 'express';
 import { z } from 'zod';
 
@@ -15,6 +15,12 @@ export async function register(request: Request, response: Response) {
 
   const { name, email, password, institution_id, role } =
     registerBodySchema.parse(request.body);
+
+  if (getRoleAccess(request.userData.role) === RoleAccess.LOW) {
+    return response
+      .status(401)
+      .json({ error: "You don't have permission to access this" });
+  }
 
   try {
     const registerUserUseCase = MakeRegisterUserCase();

@@ -15,7 +15,10 @@ export class List {
   constructor(private planningRepository: PlanningRepository) {}
 
   async execute({ userData }: ListRequest): Promise<ListResponse> {
-    const { role, institution_id } = userData;
+    const {
+      role,
+      user: { institution_id },
+    } = userData;
 
     const options: Prisma.PlanningFindManyArgs = {
       select: {

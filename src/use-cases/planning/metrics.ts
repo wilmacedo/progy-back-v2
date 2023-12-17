@@ -62,7 +62,7 @@ export class Metrics {
 
   async getStagesPerInitiative(
     planning_id: number,
-    userData: AccessTokenData,
+    { user }: AccessTokenData,
   ): Promise<ModelInfo[]> {
     const stages = await this.stageRepository.list({ where: { planning_id } });
 
@@ -74,7 +74,7 @@ export class Metrics {
       },
       where: {
         planning_id: planning_id,
-        ...(userData.unit_id !== undefined && { unit_id: userData.unit_id }),
+        ...(user.unit_id !== undefined && { unit_id: user.unit_id }),
       },
     });
 
@@ -190,9 +190,9 @@ export class Metrics {
       },
       where: {
         planning_id: planningId,
-        ...(userData.unit_id !== undefined && {
+        ...(userData.user.unit_id !== undefined && {
           initiatives: {
-            unit_id: userData.unit_id,
+            unit_id: userData.user.unit_id,
           },
         }),
       },
