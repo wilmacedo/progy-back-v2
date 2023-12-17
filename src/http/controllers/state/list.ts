@@ -1,4 +1,5 @@
 import { makeList } from '@/use-cases/factories/state/make-list';
+import { PrismaClientUnknownRequestError } from '@prisma/client/runtime/library';
 import { Request, Response } from 'express';
 import { z } from 'zod';
 
@@ -18,14 +19,22 @@ export async function list(request: Request, response: Response) {
   const { id } = listParamSchema.parse(request.params);
   const { populate } = listQuerySchema.parse(request.query);
 
-  const listCase = makeList();
+  try {
+    const listCase = makeList();
 
-  const { states } = await listCase.execute({
-    planningId: id,
-    filter: {
-      populate,
-    },
-  });
+    const { states } = await listCase.execute({
+      planningId: id,
+      filter: {
+        populate,
+      },
+    });
 
-  return response.status(200).json({ data: states });
+    return response.status(200).json({ data: states });
+  } catch (error) {
+    if (error instanceof PrismaClientUnknownRequestError) {
+      return response.status(400).json({ message: 'invalid populate query' });
+    }
+
+    throw error;
+  }
 }
