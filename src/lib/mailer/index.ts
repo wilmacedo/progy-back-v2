@@ -3,7 +3,6 @@ import nodemailer, { Transporter } from 'nodemailer';
 import hbs from 'nodemailer-express-handlebars';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import { MailOptions } from './types';
 
 export class Mailer {
@@ -44,8 +43,7 @@ export class Mailer {
       attachments: [
         {
           filename: 'logo.png',
-          path:
-            path.dirname(fileURLToPath(import.meta.url)) + '/images/logo.png',
+          path: path.resolve('./src/lib/mailer/images/logo.png'),
           cid: 'logo',
         },
       ],
