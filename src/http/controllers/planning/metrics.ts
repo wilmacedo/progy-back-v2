@@ -13,16 +13,12 @@ export async function metrics(request: Request, response: Response) {
 
   const { id } = metricsParamsSchema.parse(request.params);
 
-  try {
-    const metricsCase = makeMetricsCase();
+  const metricsCase = makeMetricsCase();
 
-    const { result } = await metricsCase.execute({
-      planningId: id,
-      userData: request.userData,
-    });
+  const { result } = await metricsCase.execute({
+    planningId: id,
+    userData: request.userData,
+  });
 
-    return response.status(200).json({ data: result });
-  } catch (error) {
-    return error;
-  }
+  return response.status(200).json({ data: result });
 }
