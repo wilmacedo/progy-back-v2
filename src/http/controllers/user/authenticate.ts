@@ -24,6 +24,8 @@ export async function authenticate(request: Request, response: Response) {
         id: user.id,
         name: user.name,
         email: user.email,
+        institution_id: user.institution_id,
+        unit_id: user.unit_id,
       },
     };
 
