@@ -7,4 +7,10 @@ export class InMemoryPlanningRepository implements PlanningRepository {
   async list(): Promise<Planning[]> {
     return this.plannings;
   }
+
+  async findById(id: number): Promise<Planning | null> {
+    const planning = this.plannings.find(planning => planning.id === id);
+
+    return planning || null;
+  }
 }

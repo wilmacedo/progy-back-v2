@@ -8,4 +8,10 @@ export class PrismaPlanningRepository implements PlanningRepository {
 
     return plannings;
   }
+
+  async findById(id: number): Promise<Planning | null> {
+    const planning = await prisma.planning.findUnique({ where: { id } });
+
+    return planning;
+  }
 }

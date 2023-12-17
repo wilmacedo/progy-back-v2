@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { makeListCase } from '@/use-cases/factories/planning/list';
+import { makeListCase } from '@/use-cases/factories/planning/make-list';
 
 export async function list(request: Request, response: Response) {
   try {
