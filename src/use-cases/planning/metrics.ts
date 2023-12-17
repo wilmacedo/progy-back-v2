@@ -56,8 +56,6 @@ export class Metrics {
         (initiative as any).stages.name.toLowerCase() === targetName,
     );
 
-    console.log(initiatives[initiatives.length - 1]);
-
     this.initiativeSize = initiatives.length;
     this.initiativesDone = filtered.length;
   }
