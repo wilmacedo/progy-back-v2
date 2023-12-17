@@ -31,7 +31,7 @@ export async function register(request: Request, response: Response) {
       return response.status(409).json({ message: error.message });
     }
 
-    return error;
+    throw error;
   }
 
   return response.sendStatus(201);

@@ -18,18 +18,14 @@ export async function list(request: Request, response: Response) {
   const { id } = listParamSchema.parse(request.params);
   const { populate } = listQuerySchema.parse(request.query);
 
-  try {
-    const listCase = makeList();
+  const listCase = makeList();
 
-    const { activities } = await listCase.execute({
-      planningId: id,
-      filter: {
-        populate,
-      },
-    });
+  const { activities } = await listCase.execute({
+    planningId: id,
+    filter: {
+      populate,
+    },
+  });
 
-    return response.status(200).json({ data: activities });
-  } catch (error) {
-    return error;
-  }
+  return response.status(200).json({ data: activities });
 }

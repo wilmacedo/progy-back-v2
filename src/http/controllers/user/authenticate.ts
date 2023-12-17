@@ -40,6 +40,6 @@ export async function authenticate(request: Request, response: Response) {
       return response.status(401).json({ message: error.message });
     }
 
-    return error;
+    throw error;
   }
 }

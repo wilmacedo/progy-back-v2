@@ -1,4 +1,5 @@
 import { env } from '@/env';
+import { PrismaClientInitializationError } from '@prisma/client/runtime/library';
 import { NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
 
@@ -12,6 +13,12 @@ export function errorHandler(
     return response
       .status(400)
       .send({ message: 'Validation error', issues: error.format() });
+  }
+
+  if (error instanceof PrismaClientInitializationError) {
+    return response
+      .status(500)
+      .send({ error: 'Server cannot connect with database' });
   }
 
   if (env.NODE_ENV !== 'production') {

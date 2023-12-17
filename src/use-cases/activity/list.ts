@@ -43,8 +43,6 @@ export class List {
       };
     }
 
-    console.log(options);
-
     const activities = await this.activityRepository.list(options);
 
     return { activities };
