@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import 'express-async-errors';
 import morgan from 'morgan';
+import { Queue } from './jobs/queue';
 import { routes } from './routes';
 import { errorHandler } from './utils/error-handler';
 
@@ -16,3 +17,5 @@ app.use(morgan('dev'));
 app.use('/', routes);
 
 app.use(errorHandler);
+
+Queue.process();

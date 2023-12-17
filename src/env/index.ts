@@ -7,6 +7,11 @@ const schema = z.object({
     .enum(['development', 'production', 'test'])
     .default('development'),
   JWT_SECRET: z.string(),
+  MAIL_USER: z.string(),
+  MAIL_PASS: z.string(),
+  MAIL_HOST: z.string(),
+  REDIS_HOST: z.string(),
+  REDIS_PORT: z.string(),
 });
 
 const _env = schema.safeParse(process.env);
