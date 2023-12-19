@@ -74,7 +74,8 @@ export class Metrics {
       },
       where: {
         planning_id: planning_id,
-        ...(user.unit_id !== undefined && { unit_id: user.unit_id }),
+        ...(user.unit_id !== undefined &&
+          user.unit_id !== null && { unit_id: user.unit_id }),
       },
     });
 
@@ -190,11 +191,12 @@ export class Metrics {
       },
       where: {
         planning_id: planningId,
-        ...(userData.user.unit_id !== undefined && {
-          initiatives: {
-            unit_id: userData.user.unit_id,
-          },
-        }),
+        ...(userData.user.unit_id !== undefined &&
+          userData.user.unit_id !== null && {
+            initiatives: {
+              unit_id: userData.user.unit_id,
+            },
+          }),
       },
     });
     const statusPerActivity = await this.getStatusPerActivity(
