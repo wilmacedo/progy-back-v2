@@ -18,6 +18,8 @@ describe('Register user case', () => {
       email: 'wil.macedo.sa@gmail.com',
       name: 'Wil Macedo',
       password: '123456',
+      role: 'admin',
+      institution_id: 1,
     });
 
     expect(user.id).toEqual(1);
@@ -30,6 +32,8 @@ describe('Register user case', () => {
       email: 'wil.macedo.sa@gmail.com',
       name: 'Wil Macedo',
       password,
+      role: 'admin',
+      institution_id: 1,
     });
 
     const isHashed = await compare(password, user.password);
@@ -44,6 +48,8 @@ describe('Register user case', () => {
       name: 'Wil Macedo',
       email,
       password: '123456',
+      role: 'admin',
+      institution_id: 1,
     });
 
     expect(
@@ -51,6 +57,8 @@ describe('Register user case', () => {
         name: 'Wil Macedo',
         email,
         password: '123456',
+        role: 'admin',
+        institution_id: 1,
       }),
     ).rejects.toThrow(UserAlreadyExists);
   });
