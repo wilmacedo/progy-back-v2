@@ -1,5 +1,5 @@
-import { Queue } from '@/jobs/queue';
-import { JobType } from '@/jobs/types';
+import { Queue } from '@/lib/queue';
+import { JobType } from '@/lib/queue/types';
 import { InstitutionRepository } from '@/repositories/institution-repository';
 import { UserRepository } from '@/repositories/user-repository';
 import { InstitutionNotFoundError } from '../error/institution-not-found-error';
