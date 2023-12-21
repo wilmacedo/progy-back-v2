@@ -13,9 +13,13 @@ CREATE TABLE "notifications" (
     "id" SERIAL NOT NULL,
     "user_id" INTEGER NOT NULL,
     "activity" BOOLEAN NOT NULL DEFAULT true,
+    "initiative" BOOLEAN NOT NULL DEFAULT true,
 
     CONSTRAINT "notifications_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "notifications_user_id_key" ON "notifications"("user_id");
 
 -- AddForeignKey
 ALTER TABLE "activitiy_notifications" ADD CONSTRAINT "activitiy_notifications_activity_id_fkey" FOREIGN KEY ("activity_id") REFERENCES "activities"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

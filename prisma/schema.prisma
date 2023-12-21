@@ -23,7 +23,7 @@ model ActivityNotification {
 
 model Notification {
   id         Int     @id @default(autoincrement())
-  user_id    Int
+  user_id    Int     @unique
   users      User    @relation(fields: [user_id], references: [id])
   activity   Boolean @default(true)
   initiative Boolean @default(true)
