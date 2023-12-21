@@ -13,7 +13,7 @@ model SequelizeMeta {
 
 model ActivityNotification {
   id          Int      @id @default(autoincrement())
-  activity_id Int
+  activity_id Int      @unique
   delayed     Boolean  @default(false)
   expired     Boolean  @default(false)
   activity    Activity @relation(fields: [activity_id], references: [id])
