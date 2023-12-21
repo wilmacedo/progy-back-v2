@@ -1,5 +1,5 @@
 export interface Job {
-  cronTime: string;
+  cronTime?: string;
   name: JobType;
 
   execute(): Promise<void>;
