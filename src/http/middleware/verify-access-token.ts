@@ -19,7 +19,7 @@ export async function verifyAccessToken(
     const decoded = jwt.verify(token, env.JWT_SECRET);
     const decodedData = decoded as AccessTokenData;
     if (typeof decodedData !== 'object') {
-      return response.status(401).json({ message: 'Token not provided' });
+      return response.status(401).json({ message: 'Invalid token' });
     }
 
     request.userData = decodedData;
