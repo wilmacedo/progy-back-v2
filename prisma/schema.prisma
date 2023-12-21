@@ -11,24 +11,45 @@ model SequelizeMeta {
   name String @id @db.VarChar(255)
 }
 
+model ActivityNotification {
+  id            Int      @id @default(autoincrement())
+  activity_id   Int
+  delayed       Boolean  @default(false)
+  close_delayed Boolean  @default(false)
+  activity      Activity @relation(fields: [activity_id], references: [id])
+
+  @@map("activitiy_notifications")
+}
+
+model Notification {
+  id         Int     @id @default(autoincrement())
+  user_id    Int
+  users      User    @relation(fields: [user_id], references: [id])
+  activity   Boolean @default(true)
+  initiative Boolean @default(true)
+
+  @@map("notifications")
+}
+
 model Activity {
-  id                 Int               @id @default(autoincrement())
-  name               String            @db.VarChar(255)
-  initiative_id      Int
-  responsible        String            @db.VarChar(255)
-  date_start         DateTime          @db.Timestamptz(6)
-  date_end           DateTime          @db.Timestamptz(6)
-  value              Decimal?          @db.Decimal
-  state_id           Int
-  planning_id        Int
-  created_at         DateTime          @db.Timestamptz(6)
-  updated_at         DateTime          @db.Timestamptz(6)
-  file               Bytes?
-  comments           String?           @db.VarChar(255)
-  initiatives        Initiative        @relation(fields: [initiative_id], references: [id], onDelete: Cascade)
-  plannings          Planning          @relation(fields: [planning_id], references: [id], onDelete: Cascade)
-  states             State             @relation(fields: [state_id], references: [id], onDelete: Cascade)
-  pending_activities PendingActivity[]
+  id                   Int                    @id @default(autoincrement())
+  name                 String                 @db.VarChar(255)
+  initiative_id        Int
+  responsible          String                 @db.VarChar(255)
+  date_start           DateTime               @db.Timestamptz(6)
+  date_end             DateTime               @db.Timestamptz(6)
+  value                Decimal?               @db.Decimal
+  state_id             Int
+  planning_id          Int
+  created_at           DateTime               @db.Timestamptz(6)
+  updated_at           DateTime               @db.Timestamptz(6)
+  file                 Bytes?
+  comments             String?                @db.VarChar(255)
+  initiatives          Initiative             @relation(fields: [initiative_id], references: [id], onDelete: Cascade)
+  plannings            Planning               @relation(fields: [planning_id], references: [id], onDelete: Cascade)
+  states               State                  @relation(fields: [state_id], references: [id], onDelete: Cascade)
+  pending_activities   PendingActivity[]
+  ActivityNotification ActivityNotification[]
 
   @@map("activities")
 }
@@ -96,6 +117,7 @@ model Institution {
   id         Int        @id @default(autoincrement())
   name       String     @db.VarChar(255)
   code       String     @unique @db.VarChar(255)
+  active     Boolean    @default(true)
   created_at DateTime   @db.Timestamptz(6)
   updated_at DateTime   @db.Timestamptz(6)
   plannings  Planning[]
@@ -243,16 +265,17 @@ model Unit {
 }
 
 model User {
-  id             Int      @id @default(autoincrement())
-  name           String   @db.VarChar(255)
-  email          String   @unique @db.VarChar(255)
-  password       String   @db.VarChar(255)
-  role           String   @db.VarChar(255)
+  id             Int            @id @default(autoincrement())
+  name           String         @db.VarChar(255)
+  email          String         @unique @db.VarChar(255)
+  password       String         @db.VarChar(255)
+  role           String         @db.VarChar(255)
   institution_id Int?
-  created_at     DateTime @db.Timestamptz(6)
-  updated_at     DateTime @db.Timestamptz(6)
+  created_at     DateTime       @db.Timestamptz(6)
+  updated_at     DateTime       @db.Timestamptz(6)
   unit_id        Int?
-  units          Unit?    @relation(fields: [unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  units          Unit?          @relation(fields: [unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Notification   Notification[]
 
   @@map("users")
 }
