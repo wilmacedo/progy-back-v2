@@ -12,11 +12,11 @@ model SequelizeMeta {
 }
 
 model ActivityNotification {
-  id            Int      @id @default(autoincrement())
-  activity_id   Int
-  delayed       Boolean  @default(false)
-  close_delayed Boolean  @default(false)
-  activity      Activity @relation(fields: [activity_id], references: [id])
+  id          Int      @id @default(autoincrement())
+  activity_id Int
+  delayed     Boolean  @default(false)
+  expired     Boolean  @default(false)
+  activity    Activity @relation(fields: [activity_id], references: [id])
 
   @@map("activitiy_notifications")
 }
