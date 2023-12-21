@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { Notification } from '@prisma/client';
+import { Notification, Prisma } from '@prisma/client';
 import { NotificationRepository } from '../notification-repository';
 
 export class PrismaNotificationRepository implements NotificationRepository {
@@ -15,7 +15,19 @@ export class PrismaNotificationRepository implements NotificationRepository {
 
   async findByUser(userId: number): Promise<Notification | null> {
     const notification = await prisma.notification.findUnique({
-      where: { id: userId },
+      where: { user_id: userId },
+    });
+
+    return notification;
+  }
+
+  async update(
+    userId: number,
+    data: Prisma.NotificationUpdateInput,
+  ): Promise<Notification> {
+    const notification = await prisma.notification.update({
+      where: { user_id: userId },
+      data,
     });
 
     return notification;
