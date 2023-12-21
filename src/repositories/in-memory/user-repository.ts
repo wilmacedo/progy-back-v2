@@ -12,7 +12,15 @@ export class InMemoryUserRepository implements UserRepository {
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    const user = this.users.find(user => user.email === email);
+    const user = this.users.find(
+      user => user.email.toLowerCase() === email.toLowerCase(),
+    );
+
+    return user || null;
+  }
+
+  async findByName(name: string): Promise<User | null> {
+    const user = this.users.find(user => user.name === name);
 
     return user || null;
   }

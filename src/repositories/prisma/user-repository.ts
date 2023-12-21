@@ -23,6 +23,19 @@ export class PrismaUserRepository implements UserRepository {
     return user;
   }
 
+  async findByName(name: string): Promise<User | null> {
+    const user = await prisma.user.findFirst({
+      where: {
+        name: {
+          equals: name,
+          mode: 'insensitive',
+        },
+      },
+    });
+
+    return user;
+  }
+
   async create(data: Prisma.UserCreateInput): Promise<User> {
     const user = await prisma.user.create({ data });
 
