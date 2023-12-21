@@ -13,7 +13,6 @@ CREATE TABLE "notifications" (
     "id" SERIAL NOT NULL,
     "user_id" INTEGER NOT NULL,
     "activity" BOOLEAN NOT NULL DEFAULT true,
-    "initiative" BOOLEAN NOT NULL DEFAULT true,
 
     CONSTRAINT "notifications_pkey" PRIMARY KEY ("id")
 );
