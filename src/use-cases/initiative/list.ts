@@ -24,6 +24,7 @@ export class List {
         name: true,
         code: true,
         responsible: true,
+        planning_id: true,
         unit_id: true,
         perspective_id: true,
         stage_id: true,
