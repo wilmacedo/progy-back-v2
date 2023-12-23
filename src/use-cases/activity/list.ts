@@ -25,6 +25,7 @@ export class List {
         responsible: true,
         date_start: true,
         date_end: true,
+        planning_id: true,
         state_id: true,
         initiative_id: true,
         file: true,
