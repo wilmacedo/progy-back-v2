@@ -25,6 +25,7 @@ export function getPopulate(filter: Filter | undefined): SelectFilter | null {
   for (const key of splittedFilter) {
     filterObject.select[key] = {
       select: {
+        id: true,
         name: true,
       },
     };

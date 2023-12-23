@@ -66,6 +66,7 @@ model Font {
   updated_at          DateTime            @db.Timestamptz(6)
   plannings           Planning            @relation(fields: [planning_id], references: [id], onDelete: Cascade)
   pending_initiatives PendingInitiative[]
+  Initiative          Initiative[]
 
   @@map("fonts")
 }
@@ -107,6 +108,7 @@ model Initiative {
   plannings           Planning            @relation(fields: [planning_id], references: [id], onDelete: Cascade)
   stages              Stage               @relation(fields: [stage_id], references: [id], onDelete: Cascade)
   units               Unit                @relation(fields: [unit_id], references: [id], onDelete: Cascade)
+  fonts               Font                @relation(fields: [font_id], references: [id])
   pending_activities  PendingActivity[]
   pending_initiatives PendingInitiative[]
 

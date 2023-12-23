@@ -22,6 +22,7 @@ export class List {
       select: {
         id: true,
         name: true,
+        code: true,
         responsible: true,
         unit_id: true,
         perspective_id: true,
