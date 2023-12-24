@@ -7,6 +7,7 @@ import { perspectivesRouter } from '@/http/controllers/perspective/routes';
 import { planningsRouter } from '@/http/controllers/planning/routes';
 import { stagesRouter } from '@/http/controllers/stage/routes';
 import { statesRouter } from '@/http/controllers/state/routes';
+import { unitsRouter } from '@/http/controllers/unit/routes';
 import { usersRouter } from '@/http/controllers/user/routes';
 import { Router } from 'express';
 
@@ -19,6 +20,7 @@ routes.use('/plannings', statesRouter);
 routes.use('/plannings', initiativesRouter);
 routes.use('/plannings', stagesRouter);
 routes.use('/plannings', perspectivesRouter);
+routes.use('/plannings', unitsRouter);
 routes.use('/institutions', institutionsRouter);
 routes.use('/email', emailsRouter);
 routes.use('/notifications', notificationsRouter);
