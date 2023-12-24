@@ -1,5 +1,6 @@
 import { activitiesRouter } from '@/http/controllers/activity/routes';
 import { emailsRouter } from '@/http/controllers/email/routes';
+import { fontsRouter } from '@/http/controllers/font/routes';
 import { initiativesRouter } from '@/http/controllers/initiative/routes';
 import { institutionsRouter } from '@/http/controllers/institution/routes';
 import { notificationsRouter } from '@/http/controllers/notification/routes';
@@ -21,6 +22,7 @@ routes.use('/plannings', initiativesRouter);
 routes.use('/plannings', stagesRouter);
 routes.use('/plannings', perspectivesRouter);
 routes.use('/plannings', unitsRouter);
+routes.use('/plannings', fontsRouter);
 routes.use('/institutions', institutionsRouter);
 routes.use('/email', emailsRouter);
 routes.use('/notifications', notificationsRouter);
