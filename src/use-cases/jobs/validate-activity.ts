@@ -19,7 +19,7 @@ export class ValidateActivity implements Job {
     private activityNotificationRepository: ActivityNotificationRepository,
   ) {
     this.name = JobType.VALIDATE_ACTIVITY;
-    this.cronTime = '* * * * * *';
+    this.cronTime = '0 8 * * *'; // Every day at 8h
     this.delayedTime = 3 * 24 * 60 * 60 * 1000; // 3 days
   }
 
@@ -60,6 +60,12 @@ export class ValidateActivity implements Job {
   }
 
   async execute(): Promise<void> {
+    const startupDate = new Date(2023, 11, 25);
+
+    if (new Date().getTime() > startupDate.getTime()) {
+      return;
+    }
+
     const activities = await this.activityRepository.list({
       select: {
         date_end: true,
