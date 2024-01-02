@@ -26,6 +26,6 @@ export async function verifyAccessToken(
 
     next();
   } catch (error) {
-    return error;
+    return response.status(401).json({ message: 'Invalid token' });
   }
 }
