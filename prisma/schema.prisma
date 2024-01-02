@@ -123,6 +123,7 @@ model Institution {
   created_at DateTime   @db.Timestamptz(6)
   updated_at DateTime   @db.Timestamptz(6)
   plannings  Planning[]
+  User       User[]
 
   @@map("institutions")
 }
@@ -273,6 +274,7 @@ model User {
   password       String         @db.VarChar(255)
   role           String         @db.VarChar(255)
   institution_id Int?
+  institutions   Institution?   @relation(fields: [institution_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   created_at     DateTime       @db.Timestamptz(6)
   updated_at     DateTime       @db.Timestamptz(6)
   unit_id        Int?
