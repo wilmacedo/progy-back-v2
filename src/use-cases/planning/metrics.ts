@@ -205,7 +205,7 @@ export class Metrics {
     );
     const delayed = this.delayedActivities(activities);
     const costIndicator = this.calculateCost(activities);
-    const idp = this.calculateIDP(activities);
+    // const idp = this.calculateIDP(activities);
     const totalGoals = await this.goalRepository.count({
       where: { planning_id: planningId },
     });
@@ -215,7 +215,7 @@ export class Metrics {
       stagesPerInitiative,
       statusPerActivity,
       costIndicator,
-      idp,
+      idp: [],
       totalGoals,
       totalDelayed: delayed.length,
       totalInitiatives: this.initiativeSize,
