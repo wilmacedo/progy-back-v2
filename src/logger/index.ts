@@ -26,7 +26,7 @@ function warning(service: string, message: string) {
   );
 }
 
-function log(service: string, message: any) {
+function log(service: string, message: unknown) {
   console.log(`${prefix()} ${Color.BLUE}${service} ${Color.WHITE}${message}`);
 }
 

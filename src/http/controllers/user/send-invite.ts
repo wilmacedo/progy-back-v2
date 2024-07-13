@@ -7,7 +7,7 @@ import { z } from 'zod';
 
 export async function sendInvite(request: Request, response: Response) {
   const sendInviteBodySchema = z.object({
-    email: z.string(),
+    email: z.string().email(),
     institution_id: z.number(),
     role: z.enum(availableRoles),
   });
@@ -37,7 +37,7 @@ export async function sendInvite(request: Request, response: Response) {
       error instanceof UserAlreadyExists ||
       error instanceof InstitutionNotFoundError
     ) {
-      return response.status(409).json({ message: error.message });
+      return response.status(404).json({ message: error.message });
     }
 
     throw error;

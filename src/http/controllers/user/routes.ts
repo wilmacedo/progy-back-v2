@@ -6,10 +6,12 @@ import { me } from './me';
 import { register } from './register';
 import { sendInvite } from './send-invite';
 import { update } from './update';
+import { passwordRecovery } from './password-recovery';
 
 export const usersRouter = Router();
 
 usersRouter.post('/authenticate', authenticate);
+usersRouter.post('/password-recovery', passwordRecovery);
 
 usersRouter.post('/send-invite', verifyAccessToken, sendInvite);
 usersRouter.post('/', verifyAccessToken, register);

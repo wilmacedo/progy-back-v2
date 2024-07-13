@@ -4,9 +4,15 @@ import { makeValidateActivity } from '@/use-cases/factories/jobs/make-validate-a
 import { default as BullQueue } from 'bull';
 import { schedule } from 'node-cron';
 import { JobNotFoundError } from './errors/job-not-founded-error';
-import { JobType } from './types';
+import { Job, JobType } from './types';
+import { makeRecoveryPasswordJob } from '@/jobs/factories/make-recovery-password-job';
+import { makeSendInviteJob } from '@/jobs/factories/make-send-invite-job';
 
-const jobs = [makeValidateActivity];
+const jobs: (() => Job)[] = [
+  makeValidateActivity,
+  makeRecoveryPasswordJob,
+  makeSendInviteJob,
+];
 
 function buildQueue(key: string) {
   const queue = new BullQueue(key, {
@@ -45,7 +51,7 @@ async function add<T>(name: JobType, data?: T) {
 
 function process() {
   for (const queue of getQueues()) {
-    queue.bull.process(() => queue.instance().execute());
+    queue.bull.process(callback => queue.instance().execute(callback.data));
   }
 }
 

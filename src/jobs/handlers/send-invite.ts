@@ -1,5 +1,6 @@
 import { env } from '@/env';
 import { Mailer } from '@/lib/mailer';
+import { Job, JobType } from '@/lib/queue/types';
 import { Cryptograph } from '@/utils/cryptograph';
 
 interface SendInviteData {
@@ -8,8 +9,10 @@ interface SendInviteData {
   role: string;
 }
 
-export class SendInvite {
-  async handle(data: SendInviteData): Promise<void> {
+export class SendInvite implements Job {
+  name = JobType.SEND_INVITE;
+
+  async execute(data: SendInviteData): Promise<void> {
     const mailer = new Mailer();
     const crypto = new Cryptograph();
     const { email, institution_id, role } = data;

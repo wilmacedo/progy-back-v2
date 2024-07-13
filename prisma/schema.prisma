@@ -12,11 +12,10 @@ model SequelizeMeta {
 }
 
 model ActivityNotification {
-  id      Int     @id @default(autoincrement())
-  delayed Boolean @default(false)
-  expired Boolean @default(false)
-
+  id          Int      @id @default(autoincrement())
   activity_id Int      @unique
+  delayed     Boolean  @default(false)
+  expired     Boolean  @default(false)
   activity    Activity @relation(fields: [activity_id], references: [id])
 
   @@map("activitiy_notifications")
@@ -25,31 +24,31 @@ model ActivityNotification {
 model Notification {
   id       Int     @id @default(autoincrement())
   user_id  Int     @unique
-  users    User    @relation(fields: [user_id], references: [id])
   activity Boolean @default(true)
+  users    User    @relation(fields: [user_id], references: [id])
 
   @@map("notifications")
 }
 
 model Activity {
-  id                   Int                    @id @default(autoincrement())
-  name                 String                 @db.VarChar(255)
+  id                   Int                   @id @default(autoincrement())
+  name                 String                @db.VarChar(255)
   initiative_id        Int
-  responsible          String                 @db.VarChar(255)
-  date_start           DateTime               @db.Timestamptz(6)
-  date_end             DateTime               @db.Timestamptz(6)
-  value                Decimal?               @db.Decimal
+  responsible          String                @db.VarChar(255)
+  date_start           DateTime              @db.Timestamptz(6)
+  date_end             DateTime              @db.Timestamptz(6)
+  value                Decimal?              @db.Decimal
   state_id             Int
   planning_id          Int
-  created_at           DateTime               @db.Timestamptz(6)
-  updated_at           DateTime               @db.Timestamptz(6)
+  created_at           DateTime              @db.Timestamptz(6)
+  updated_at           DateTime              @db.Timestamptz(6)
   file                 Bytes?
-  comments             String?                @db.VarChar(255)
-  initiatives          Initiative             @relation(fields: [initiative_id], references: [id], onDelete: Cascade)
-  plannings            Planning               @relation(fields: [planning_id], references: [id], onDelete: Cascade)
-  states               State                  @relation(fields: [state_id], references: [id], onDelete: Cascade)
+  comments             String?               @db.VarChar(255)
+  initiatives          Initiative            @relation(fields: [initiative_id], references: [id], onDelete: Cascade)
+  plannings            Planning              @relation(fields: [planning_id], references: [id], onDelete: Cascade)
+  states               State                 @relation(fields: [state_id], references: [id], onDelete: Cascade)
+  ActivityNotification ActivityNotification?
   pending_activities   PendingActivity[]
-  ActivityNotification ActivityNotification[]
 
   @@map("activities")
 }
@@ -65,8 +64,8 @@ model Font {
   created_at          DateTime            @db.Timestamptz(6)
   updated_at          DateTime            @db.Timestamptz(6)
   plannings           Planning            @relation(fields: [planning_id], references: [id], onDelete: Cascade)
-  pending_initiatives PendingInitiative[]
   Initiative          Initiative[]
+  pending_initiatives PendingInitiative[]
 
   @@map("fonts")
 }
@@ -102,13 +101,13 @@ model Initiative {
   budget_code         String?             @db.VarChar(255)
   mapp_id             Int?
   activities          Activity[]
+  fonts               Font                @relation(fields: [font_id], references: [id])
   goals               Goal                @relation(fields: [goal_id], references: [id], onDelete: Cascade)
   mapps               Mapp?               @relation(fields: [mapp_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   perspectives        Perspective         @relation(fields: [perspective_id], references: [id], onDelete: Cascade)
   plannings           Planning            @relation(fields: [planning_id], references: [id], onDelete: Cascade)
   stages              Stage               @relation(fields: [stage_id], references: [id], onDelete: Cascade)
   units               Unit                @relation(fields: [unit_id], references: [id], onDelete: Cascade)
-  fonts               Font                @relation(fields: [font_id], references: [id])
   pending_activities  PendingActivity[]
   pending_initiatives PendingInitiative[]
 
@@ -119,9 +118,9 @@ model Institution {
   id         Int        @id @default(autoincrement())
   name       String     @db.VarChar(255)
   code       String     @unique @db.VarChar(255)
-  active     Boolean    @default(true)
   created_at DateTime   @db.Timestamptz(6)
   updated_at DateTime   @db.Timestamptz(6)
+  active     Boolean    @default(true)
   plannings  Planning[]
   User       User[]
 
@@ -268,18 +267,18 @@ model Unit {
 }
 
 model User {
-  id             Int            @id @default(autoincrement())
-  name           String         @db.VarChar(255)
-  email          String         @unique @db.VarChar(255)
-  password       String         @db.VarChar(255)
-  role           String         @db.VarChar(255)
+  id             Int           @id @default(autoincrement())
+  name           String        @db.VarChar(255)
+  email          String        @unique @db.VarChar(255)
+  password       String        @db.VarChar(255)
+  role           String        @db.VarChar(255)
   institution_id Int?
-  institutions   Institution?   @relation(fields: [institution_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  created_at     DateTime       @db.Timestamptz(6)
-  updated_at     DateTime       @db.Timestamptz(6)
+  created_at     DateTime      @db.Timestamptz(6)
+  updated_at     DateTime      @db.Timestamptz(6)
   unit_id        Int?
-  units          Unit?          @relation(fields: [unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Notification   Notification[]
+  Notification   Notification?
+  institutions   Institution?  @relation(fields: [institution_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  units          Unit?         @relation(fields: [unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("users")
 }
